@@ -1,0 +1,1 @@
+# SAMPLE: Spring Boot with PostgreSQL and NGINX in Docker Compose

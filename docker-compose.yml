@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+
+  app:
+    container_name: app-springboot-server
+    image: app-springboot-server
+    restart: always
+    build: ./
+    working_dir: /server
+    volumes:
+      - ./:/server
+    depends_on:
+      - dbpostgresql
+    command: ./gradlew bootRun
+
+  nginx:
+    container_name: app-springboot-nginx
+    image: nginx
+    restart: always
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+
+  dbpostgresql:
+    container_name: app-springboot-db
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=mydb
