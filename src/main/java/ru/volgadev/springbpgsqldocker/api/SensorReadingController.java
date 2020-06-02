@@ -18,12 +18,22 @@ public class SensorReadingController {
         this.sensorReadingService = sensorReadingService;
     }
 
+    /**
+     * Save sensor reading to system
+     * @param readings - list of new readings in json (SensorReadingApiModel)
+     */
     @PostMapping("/api/save")
     void save(@RequestBody List<SensorReadingApiModel> readings) {
         sensorReadingService.save(readings);
     }
 
-
+    /**
+     * Request history of readings on one sensor
+     * @param sensorId
+     * @param from - from timestamp
+     * @param to - to timestamp
+     * @return list of readings on one sensor in json (SensorReadingApiModel)
+     */
     @GetMapping("/api/history")
     List<SensorReadingApiModel> history(@RequestParam("id") Long sensorId,
                                         @RequestParam("from") Long from,
