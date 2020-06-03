@@ -1,14 +1,19 @@
 package ru.volgadev.springbpgsqldocker.api;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import ru.volgadev.springbpgsqldocker.api.apimodel.SensorReadingApiModel;
 import ru.volgadev.springbpgsqldocker.service.SensorReadingService;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
+@Api(value="Sensors readings", description="Sensors reading API")
 public class SensorReadingController {
 
     private SensorReadingService sensorReadingService;
@@ -22,7 +27,12 @@ public class SensorReadingController {
      * Save sensor reading to system
      * @param readings - list of new readings in json (SensorReadingApiModel)
      */
-    @PostMapping("/api/save")
+    @ApiOperation(value = "Save new reading")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully save reading"),
+    }
+    )
+    @PostMapping("/save")
     void save(@RequestBody List<SensorReadingApiModel> readings) {
         sensorReadingService.save(readings);
     }
@@ -34,7 +44,8 @@ public class SensorReadingController {
      * @param to - to timestamp
      * @return list of readings on one sensor in json (SensorReadingApiModel)
      */
-    @GetMapping("/api/history")
+    @ApiOperation(value = "Get sensor history between timeout", response = List.class)
+    @GetMapping("/history")
     List<SensorReadingApiModel> history(@RequestParam("id") Long sensorId,
                                         @RequestParam("from") Long from,
                                         @RequestParam("to") Long to) {

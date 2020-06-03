@@ -4,6 +4,8 @@ For running:
    
     docker-compose up
 
+See swagger documentation on http://localhost:8080/v2/api-docs
+
 For add sensor reading:
     
     curl -s -X POST http://localhost:8080/api/save -H 'Content-Type: application/json' -d '[{"objectId": 0, "sensorId": 0, "time": 1590868461, "value": -40.0}]'
