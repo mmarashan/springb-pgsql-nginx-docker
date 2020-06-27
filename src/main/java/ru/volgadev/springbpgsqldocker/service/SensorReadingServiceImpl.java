@@ -47,6 +47,7 @@ public class SensorReadingServiceImpl implements SensorReadingService {
                 industrialObjectRepository.save(new IndustrialObject(reading.getObjectId()));
             }
             obj = industrialObjectRepository.getOne(reading.getObjectId());
+            logger.log(Level.INFO, "Get industrial object ".concat(obj.getObjectId().toString()));
 
 
             if (!sensorRepository.existsById(reading.getSensorId())){
@@ -54,6 +55,7 @@ public class SensorReadingServiceImpl implements SensorReadingService {
                 sensorRepository.save(new Sensor(reading.getSensorId(), obj));
             }
             sensor = sensorRepository.getOne(reading.getSensorId());
+            logger.log(Level.INFO, "Get sensor ".concat(sensor.getSensorId().toString()));
 
             SensorReading sensorReading = new SensorReading();
             sensorReading.setObject(obj);
@@ -61,12 +63,12 @@ public class SensorReadingServiceImpl implements SensorReadingService {
             sensorReading.setTime(reading.getTime());
             sensorReading.setValue(reading.getValue());
 
+            logger.log(Level.INFO, "Save new sensor reading");
             sensorReadingRepository.save(sensorReading);
             logger.log(Level.INFO, "Saved ".concat(sensorReading.getId().toString()));
         }
     }
 
-    // TODO: обработка случая когда нет параметров from или to (не обговорено в задаче)
     @Override
     public List<SensorReadingApiModel> history(Long sensorId, Long from, Long to) {
         logger.log(Level.INFO, "Get history for ".concat(sensorId.toString()));
