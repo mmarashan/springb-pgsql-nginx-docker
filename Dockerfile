@@ -1,1 +1,3 @@
-FROM openjdk:8-jdk-alpine
+FROM gradle
+COPY settings.gradle build.gradle ./
+COPY gradle ./gradle

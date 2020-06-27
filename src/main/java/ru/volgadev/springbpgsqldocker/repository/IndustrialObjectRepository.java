@@ -1,9 +1,9 @@
 package ru.volgadev.springbpgsqldocker.repository;
 
-import ru.volgadev.springbpgsqldocker.model.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import ru.volgadev.springbpgsqldocker.model.IndustrialObject;
 
 @Repository
-public interface UserRespository extends JpaRepository<UserModel, Long> {
+public interface IndustrialObjectRepository extends JpaRepository<IndustrialObject, Long> {
 }

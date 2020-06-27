@@ -1,4 +1,4 @@
-package ru.volgadev.springbpgsqldocker.controller;
+package ru.volgadev.springbpgsqldocker.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,7 +8,7 @@ public class Home {
 
     @RequestMapping("/")
     public String home() {
-        return "Hello Spring Boot with Docker";
+        return "Hello world!";
     }
 
 }
